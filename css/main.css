@@ -1,0 +1,10 @@
+/* WC 2026 Simulator — aggregated styles */
+@import url('base/variables.css');
+@import url('components/shared.css');
+@import url('views/dashboard.css');
+@import url('views/groups.css');
+@import url('views/bracket.css');
+@import url('views/scenarios.css');
+@import url('views/schedule.css');
+@import url('layout/header-nav.css');
+@import url('layout/responsive.css');

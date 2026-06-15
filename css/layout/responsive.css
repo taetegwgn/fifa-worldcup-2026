@@ -1,0 +1,413 @@
+/* ============================================================
+   STATS HEADER ROW — 팀 행과 동일 구조로 완전 정렬
+   ============================================================ */
+.stats-header-row {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  border: none !important;
+  background: none !important;
+  cursor: default !important;
+  border-left: none !important;
+}
+.stats-header-row .team-position,
+.stats-header-row .team-flag-cell,
+.stats-header-row .team-reorder-buttons {
+  visibility: hidden;
+}
+.stats-header-row .team-live-stats span {
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  color: var(--text-muted) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: none !important;
+  border-radius: 0 !important;
+}
+/* 기존 헤더 행 관련 */
+.gh-left-spacer, .gh-right-spacer, div.group-stats-header { display: none !important; }
+
+/* ============================================================
+   MOBILE LAYOUT FIXES — 줄바꿈 & 토스트 위치
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ── 토스트: 상단 중앙으로 이동 (하단 탭 바 방해 X) ───── */
+  .toast {
+    bottom: auto !important;
+    top: 70px !important;
+    transform: translateX(-50%) translateY(-16px) scale(0.96) !important;
+    font-size: 0.78rem;
+    padding: 9px 18px;
+    max-width: calc(100vw - 32px);
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0) scale(1) !important;
+    animation: slideDown 0.3s cubic-bezier(0.22,1,0.36,1) both !important;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-16px) scale(0.96); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  }
+
+  /* ── 조별리그 섹션 헤더: 세로 스택 ───────────────────── */
+  .section-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .section-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .section-desc {
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  /* ── 경우의 수 페이지 ─────────────────────────────────── */
+  .section-header-center {
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+  }
+  .section-header-center .section-title {
+    font-size: 1.1rem;
+  }
+  .scenarios-container {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .scenario-card {
+    padding: 14px 12px !important;
+  }
+  .scenario-heading {
+    font-size: 0.9rem !important;
+    margin-bottom: 8px !important;
+  }
+  .path-step {
+    padding: 8px 10px 8px 16px !important;
+  }
+  .step-round {
+    font-size: 0.62rem !important;
+  }
+  .step-match {
+    font-size: 0.8rem !important;
+  }
+  .step-details {
+    font-size: 0.7rem !important;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* ── 경기 일정 페이지 ─────────────────────────────────── */
+  .sched-topbar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 0 0 12px !important;
+  }
+  .sched-filter-group {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .sched-filter-btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.72rem !important;
+    padding: 6px 8px !important;
+  }
+  .sched-date-nav {
+    gap: 4px !important;
+  }
+  .sched-date-btn {
+    font-size: 0.62rem !important;
+    padding: 5px 7px !important;
+    min-width: 36px !important;
+  }
+  .sched-day-header {
+    padding: 8px 10px !important;
+  }
+  .sched-day-label {
+    font-size: 0.85rem !important;
+  }
+  /* 경기 메타: 줄바꿈 자연스럽게 */
+  .smc-meta {
+    gap: 4px !important;
+    padding: 6px 10px 4px !important;
+  }
+  .smc-round {
+    font-size: 0.64rem !important;
+  }
+  .smc-venue {
+    max-width: 100px !important;
+    font-size: 0.6rem !important;
+  }
+  .smc-teams {
+    padding: 8px 10px !important;
+    gap: 6px !important;
+  }
+  .smc-name {
+    font-size: 0.72rem !important;
+    max-width: 60px;
+  }
+  .smc-score {
+    padding: 4px 8px !important;
+  }
+  .smc-s {
+    font-size: 1rem !important;
+  }
+  .smc-scorers {
+    padding: 5px 10px 7px !important;
+  }
+  .smc-goal {
+    font-size: 0.68rem !important;
+  }
+
+  /* ── korea-badge 모바일 ──────────────────────────────── */
+  .korea-badge {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 10px !important;
+    padding: 18px 14px !important;
+  }
+}
+
+/* ============================================================
+   LANGUAGE SWITCHER + LOGO ICON
+   ============================================================ */
+.logo-icon-wrap {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 8px rgba(255,215,0,0.4));
+  animation: float 3s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.lang-switcher {
+  display: flex;
+  gap: 2px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.lang-btn {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.lang-btn:hover { color: var(--text-primary); }
+
+.lang-btn.active {
+  background: rgba(0,255,135,0.12);
+  color: var(--primary);
+  box-shadow: 0 0 6px rgba(0,255,135,0.1);
+}
+
+/* Footer disclaimer */
+.footer-disclaimer {
+  text-align: center;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.2);
+  margin-top: 6px;
+  padding-bottom: 4px;
+}
+
+/* Mobile: 언어 스위처 작게 */
+@media (max-width: 768px) {
+  .lang-switcher { display: none; } /* 모바일에선 footer에서 노출 */
+  .logo-icon-wrap { font-size: 1.4rem; }
+}
+
+/* ============================================================
+   COUNTRY SELECTION MODAL
+   ============================================================ */
+.country-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.country-modal {
+  width: 100%;
+  max-width: 640px;
+  max-height: 88vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.cm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-wrap: wrap;
+}
+
+.cm-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cm-emoji { font-size: 2rem; }
+
+.cm-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.cm-sub {
+  margin: 2px 0 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.cm-device-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: rgba(0,255,135,0.08);
+  border: 1px solid rgba(0,255,135,0.2);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cm-device-btn:hover { background: rgba(0,255,135,0.14); }
+
+.cm-search-wrap {
+  padding: 12px 16px 8px;
+}
+
+.cm-search {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.cm-search:focus { border-color: rgba(0,255,135,0.3); }
+.cm-search::placeholder { color: var(--text-muted); }
+
+.cm-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 16px 8px;
+}
+
+.cm-region-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 4px 6px;
+}
+
+.cm-region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.cm-country-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.cm-country-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+  color: var(--text-primary);
+}
+
+.cm-country-btn.selected {
+  background: rgba(0,255,135,0.08);
+  border-color: rgba(0,255,135,0.25);
+  color: var(--primary);
+}
+
+.cm-cflag { font-size: 1.2rem; flex-shrink: 0; }
+
+.cm-cname {
+  font-size: 0.72rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cm-skip-btn {
+  margin: 8px 16px 16px;
+  padding: 10px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.cm-skip-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--text-secondary); }
+
+/* Country flag in header */
+.country-btn {
+  font-size: 1.2rem !important;
+  padding: 4px 8px !important;
+}
+
+@media (max-width: 768px) {
+  .country-modal { max-height: 92vh; }
+  .cm-region-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 4px; }
+  .cm-header { padding: 14px 14px 10px; }
+  .cm-list { padding: 0 10px 6px; }
+}
+
+.scenario-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.55;
+  word-break: keep-all;
+}

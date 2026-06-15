@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 World Cup Simulator</title>
+  <meta name="description" content="2026 World Cup 48-team bracket simulator. Group stage standings, Round of 32 bracket, and Korea path scenarios.">
+
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS (modular) -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- HEADER / NAVIGATION                          -->
+  <!-- ============================================ -->
+  <header class="glass">
+    <div class="logo-container">
+      <div class="logo-icon-wrap">⚽</div>
+      <div class="logo-text">
+        <h1 class="logo-title" data-i18n="appTitle">WC 2026 Simulator</h1>
+        <p class="logo-sub" data-i18n="appSub">Fan-made · Unofficial</p>
+      </div>
+    </div>
+
+    <nav class="nav-tabs" id="nav-tabs">
+      <button class="tab-btn active" data-tab="dashboard">📊 <span data-i18n="tabDashboard">대시보드</span></button>
+      <button class="tab-btn" data-tab="groups">📋 <span data-i18n="tabGroups">조별리그</span></button>
+      <button class="tab-btn" data-tab="bracket">🏆 <span data-i18n="tabBracket">토너먼트</span></button>
+      <button class="tab-btn" data-tab="scenarios">🇰🇷 <span data-i18n="tabScenarios">경우의 수</span></button>
+      <button class="tab-btn" data-tab="schedule">📅 <span data-i18n="tabSchedule">경기일정</span></button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="btn btn-ghost country-btn" id="btn-country" onclick="showCountryModal()" title="Select Country">🌐</button>
+      <button class="btn btn-ghost" id="btn-refresh" title="Refresh">🔄</button>
+      <button class="btn btn-secondary" id="btn-reset" data-i18n="btnReset">초기화</button>
+      <button class="btn btn-primary" id="btn-auto-predict" data-i18n="btnAutoPredict">⚡ 자동 예측</button>
+    </div>
+  </header>
+
+  <!-- ============================================ -->
+  <!-- MAIN CONTENT                                 -->
+  <!-- ============================================ -->
+  <main>
+
+    <!-- ========== 1. DASHBOARD VIEW ========== -->
+    <section id="dashboard-view" class="view-section active">
+      <div class="dashboard-grid">
+
+        <!-- My Team Status Card -->
+        <div class="korea-status-card glass">
+          <div class="card-title" id="myteam-card-title">⭐ My Team Status</div>
+
+          <div class="korea-badge">
+            <div class="korea-flag-container">
+              <span class="korea-flag" id="korea-hero-flag">⭐</span>
+              <div class="korea-flag-title">
+                <h2 id="korea-hero-name">My Team</h2>
+                <p id="korea-hero-sub">Group — | Select your country above</p>
+              </div>
+            </div>
+            <div class="korea-stat-badge">
+              <div id="korea-status-number" class="korea-stat-number">-</div>
+              <div id="korea-status-label" class="korea-stat-label">Group Standing</div>
+            </div>
+          </div>
+
+          <div class="status-list">
+            <div class="status-item" id="korea-path-r32">
+              <span class="status-label">R32 Match</span>
+              <span class="status-val">Awaiting simulation…</span>
+            </div>
+            <div class="status-item" id="korea-path-r16">
+              <span class="status-label">R16 Path</span>
+              <span class="status-val">Awaiting simulation…</span>
+            </div>
+          </div>
+
+          <div class="korea-note" data-i18n="dashboardNote">
+            ※ Adjust group standings in the Groups tab — the dashboard updates automatically.
+          </div>
+        </div>
+
+        <!-- Live Matches & Top Scorers Row -->
+        <div style="margin-bottom: 20px;">
+          <!-- Live Matches Card -->
+          <div class="info-card glass" style="margin-bottom: 0;">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span data-i18n="dashLiveTitle">🔴 Live Match Board (Recent)</span>
+            </div>
+            <div id="live-matches-container" style="max-height: 380px; overflow-y: auto; padding-right: 10px;">
+               <div class="text-muted" style="padding: 20px; text-align: center;" data-i18n="loading">Loading data...</div>
+            </div>
+          </div>
+        </div>
+        <!-- Tournament Rules Info Card -->
+        <div class="info-card glass tournament-format-card">
+          <div class="tournament-format-header">
+            <div class="tournament-format-title-wrap">
+              <span class="tournament-format-year">FIFA World Cup 2026™</span>
+              <h3 class="tournament-format-title" data-i18n="dashFormatTitle">Tournament Format</h3>
+            </div>
+            
+          </div>
+
+          <div class="tournament-format-steps">
+            <div class="tf-step">
+              <div class="tf-step-icon">48</div>
+              <div class="tf-step-body">
+                <strong data-i18n="tf48">Record 48 Nations</strong>
+                <span data-i18n="tf48sub">Groups A–L · 4 teams per group</span>
+              </div>
+            </div>
+            <div class="tf-step-arrow">▼</div>
+            <div class="tf-step">
+              <div class="tf-step-icon tf-step-icon--blue">32</div>
+              <div class="tf-step-body">
+                <strong data-i18n="tf32">Group Stage → Round of 32</strong>
+                <span data-i18n="tf32sub">Top 2 from each group (24) + best 8 third-placed</span>
+              </div>
+            </div>
+            <div class="tf-step-arrow">▼</div>
+            <div class="tf-step">
+              <div class="tf-step-icon tf-step-icon--gold">📋</div>
+              <div class="tf-step-body">
+                <strong data-i18n="tfAnnex">Annex C Draw</strong>
+                <span data-i18n="tfAnnexSub">Third-place matchups determined by 495 official FIFA combos</span>
+              </div>
+            </div>
+            <div class="tf-step-arrow">▼</div>
+            <div class="tf-step tf-step--hosts">
+              <div class="tf-step-icon tf-step-icon--flags">🌎</div>
+              <div class="tf-step-body">
+                <strong data-i18n="tfHosts">3 Co-Host Nations</strong>
+                <span class="tf-host-badges">
+                  <span class="tf-host" data-i18n="hostUSA">🇺🇸 USA</span>
+                  <span class="tf-host" data-i18n="hostCanada">🇨🇦 Canada</span>
+                  <span class="tf-host" data-i18n="hostMexico">🇲🇽 Mexico</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-actions">
+            <button class="btn btn-primary btn-full" id="btn-go-groups" data-i18n="btnGoGroups">
+              📋 Start Group Stage
+            </button>
+            <button class="btn btn-secondary btn-full" id="btn-go-bracket" data-i18n="btnGoBracket">
+              🏆 View Bracket
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 2. GROUP STAGE VIEW ========== -->
+    <section id="groups-view" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="groupsTitle">조별리그 순위 시뮬레이션</h2>
+          <p class="section-desc" data-i18n="groupsDesc">각 조의 국가를 드래그하거나 ▲▼ 버튼으로 순위를 변경해보세요. 1·2위와 상위 3위팀이 32강에 진출합니다.</p>
+        </div>
+        <button class="btn btn-secondary" id="btn-auto-fill" data-i18n="btnAutoFill">⚡ 전력 기준 자동 정렬</button>
+      </div>
+
+      <!-- 12 Groups Grid -->
+      <div id="groups-container" class="groups-container">
+        <!-- Rendered dynamically by js/render/views.js -->
+      </div>
+
+      <!-- Third Place Wildcard Panel -->
+      <div class="third-place-container glass">
+        <div class="third-place-header">
+          <div>
+            <h2 class="third-place-title" data-i18n="thirdPlaceTitle">3rd Place Wildcard Comparison</h2>
+            <p class="third-place-desc" data-i18n="thirdPlaceDesc">
+              Compare 3rd-placed teams across all groups. Only the top 8 advance to the Round of 32.
+            </p>
+          </div>
+        </div>
+        <div id="third-teams-list" class="third-teams-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. TOURNAMENT BRACKET VIEW ========== -->
+    <section id="bracket-view" class="view-section">
+      <div class="section-header-center">
+        <h2 class="section-title" data-i18n="bracketTitle">32강 토너먼트 대진표</h2>
+        <p class="section-desc" data-i18n="bracketDesc">각 매치의 국가를 클릭하면 승리국으로 선택되어 다음 라운드로 진출합니다.</p>
+      </div>
+
+      <div class="bracket-outer">
+        <div class="bracket-container">
+          <!-- LEFT HALF -->
+          <div id="left-r32-col" class="bracket-column"></div>
+          <div id="left-r16-col" class="bracket-column"></div>
+          <div id="left-qf-col" class="bracket-column"></div>
+          <div id="left-sf-col" class="bracket-column"></div>
+
+          <!-- CENTER (Finals) -->
+          <div id="center-finals" class="center-column"></div>
+
+          <!-- RIGHT HALF -->
+          <div id="right-sf-col" class="bracket-column"></div>
+          <div id="right-qf-col" class="bracket-column"></div>
+          <div id="right-r16-col" class="bracket-column"></div>
+          <div id="right-r32-col" class="bracket-column"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4. KOREA SCENARIOS VIEW ========== -->
+    <section id="scenarios-view" class="view-section">
+      <div class="section-header-center">
+        <h2 class="section-title" data-i18n="scenariosTitle">🇰🇷 대한민국 토너먼트 진출 시나리오</h2>
+        <p class="section-desc" data-i18n="scenariosDesc">조별리그 순위에 따라 대한민국이 만나게 될 대진 경로, 경기 일시, 스타디움 정보를 분석합니다.</p>
+      </div>
+
+      <div id="scenarios-container" class="scenarios-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ========== 5. SCHEDULE VIEW ========== -->
+    <section id="schedule-view" class="view-section">
+      <div class="section-header-center">
+        <h2 class="section-title" data-i18n="scheduleTitle">📅 경기 결과 &amp; 일정</h2>
+        <p class="section-desc" data-i18n="scheduleDesc">완료된 경기 결과(득점자 포함)와 예정 경기 일정을 확인합니다. 60초마다 자동 업데이트됩니다.</p>
+      </div>
+      <div id="schedule-container" class="schedule-container">
+        <div class="text-muted" style="padding:30px; text-align:center;" data-i18n="scheduleLoading">Loading match data...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MATCH DETAILS MODAL -->
+  <div id="match-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content glass">
+      <button class="modal-close" onclick="window.closeMatchModal()">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- COUNTRY SELECTION MODAL                       -->
+  <!-- ============================================ -->
+  <div id="country-modal" class="country-modal-overlay" style="display:none;">
+    <div class="country-modal glass">
+      <div class="cm-header">
+        <div class="cm-title-wrap">
+          <span class="cm-emoji">🌍</span>
+          <div>
+            <h2 class="cm-title">Select Your Country</h2>
+            <p class="cm-sub">Match times will be shown in your local timezone</p>
+          </div>
+        </div>
+        <button class="cm-device-btn" onclick="useDeviceTZ()">📍 Use My Device Time</button>
+      </div>
+
+      <div class="cm-search-wrap">
+        <input type="text" id="cm-search" class="cm-search" placeholder="🔍  Search country..." oninput="filterCountries(this.value)">
+      </div>
+
+      <div class="cm-list" id="cm-list">
+        <!-- Rendered by JS -->
+      </div>
+
+      <button class="cm-skip-btn" onclick="useDeviceTZ()">Skip — use device timezone</button>
+    </div>
+  </div>
+
+  <!-- 모바일 하단 네비게이션 -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button class="tab-btn active" data-tab="dashboard"><span class="tab-icon">📊</span><span class="tab-label" data-i18n="tabDashboard">대시보드</span></button>
+    <button class="tab-btn" data-tab="groups"><span class="tab-icon">📋</span><span class="tab-label" data-i18n="tabGroups">조별리그</span></button>
+    <button class="tab-btn" data-tab="bracket"><span class="tab-icon">🏆</span><span class="tab-label" data-i18n="tabBracket">토너먼트</span></button>
+    <button class="tab-btn" data-tab="scenarios"><span class="tab-icon">🇰🇷</span><span class="tab-label" data-i18n="tabScenarios">경우의수</span></button>
+    <button class="tab-btn" data-tab="schedule"><span class="tab-icon">📅</span><span class="tab-label" data-i18n="tabSchedule">경기일정</span></button>
+  </nav>
+
+  <div id="toast-container"></div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <img src="fifa-trophy.png" alt="FIFA World Cup Trophy" class="footer-trophy">
+      <div class="footer-text">
+        <span class="footer-title" data-i18n="footerTitle">2026 World Cup Simulator</span>
+        <span class="footer-credit"><span data-i18n="footerCredit">Made with ❤️ by</span> <strong>Taegwan Kim</strong></span>
+      </div>
+    </div>
+  <div class="footer-disclaimer" data-i18n="appDisclaimer">비공식 팬 사이트입니다. FIFA와 무관합니다.</div>
+  </footer>
+
+  <!-- Core modules (load order matters) -->
+  <script src="js/config/constants.js"></script>
+  <script src="js/config/schedule-static.js"></script>
+  <script src="js/i18n/index.js"></script>
+  <script src="js/country/index.js"></script>
+  <script src="js/config/defaults.js"></script>
+  <script src="js/utils/helpers.js"></script>
+  <script src="js/logic/standings.js"></script>
+  <script src="js/render/views.js"></script>
+  <script src="js/render/registry.js"></script>
+  <script src="js/ui/controls.js"></script>
+  <script src="js/api/live.js"></script>
+  <script src="js/events/actions.js"></script>
+  <script src="js/events/init.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

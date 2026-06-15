@@ -1,0 +1,430 @@
+/* ============================================================
+   SCHEDULE MATCH CARD v3 — 직관적 레이아웃
+   ============================================================ */
+.sched-match-wrap {
+  margin-bottom: 6px;
+}
+
+.sched-match-card2 {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.sched-match-card2:hover {
+  border-color: rgba(255,255,255,0.14);
+}
+
+.sched-match-card2.live {
+  border: 1px solid rgba(239,68,68,0.35);
+  background: rgba(239,68,68,0.04);
+  box-shadow: 0 0 12px rgba(239,68,68,0.08);
+}
+.sched-match-card2.kor-game {
+  border-left: 3px solid rgba(199,55,55,0.7);
+  background: rgba(199,55,55,0.04);
+}
+.sched-match-card2.live.kor-game {
+  border: 1px solid rgba(239,68,68,0.35);
+  border-left: 3px solid rgba(239,68,68,0.6);
+  background: rgba(239,68,68,0.06);
+}
+
+/* ── 메타 행 ── */
+.smc-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  flex-wrap: wrap;
+}
+
+.smc-time {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 42px;
+}
+
+.smc-round {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.smc-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 1px 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.smc-status.done     { background: rgba(0,255,135,0.1); color: var(--primary); }
+.smc-status.live     { background: rgba(239,68,68,0.15); color: #f87171; animation: livePulse 1.5s ease-in-out infinite; }
+.smc-status.upcoming { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+
+.smc-venue {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+/* ── 팀 + 스코어 행 ── */
+.smc-teams {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  gap: 8px;
+}
+
+.smc-team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.smc-team.home { flex-direction: row; }
+.smc-team.away { flex-direction: row-reverse; }
+
+.smc-flag { flex-shrink: 0; line-height: 1; }
+.smc-flag img { width: 22px; height: auto; border-radius: 2px; display: block; }
+
+.smc-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.smc-team.winner .smc-name { color: var(--text-primary); font-weight: 700; }
+.smc-team.kor .smc-name    { color: #FF8080; font-weight: 700; }
+
+/* 스코어 박스 */
+.smc-score {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+.smc-s {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-secondary);
+  min-width: 16px;
+  text-align: center;
+}
+.smc-s.win { color: var(--primary); }
+.smc-score.live-score {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.25);
+}
+.smc-score.live-score .smc-s {
+  color: #f87171;
+}
+.smc-sep {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 2px;
+}
+
+/* VS 박스 */
+.smc-vs {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 5px 12px;
+  letter-spacing: 0.08em;
+}
+
+/* ── 득점자 행 ── */
+.smc-scorers {
+  display: flex;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 6px 12px 8px;
+  gap: 4px;
+}
+
+.smc-scorers-home,
+.smc-scorers-away {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.smc-scorers-away { align-items: flex-end; text-align: right; }
+
+.smc-goal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.smc-goal-ball { font-size: 0.75rem; flex-shrink: 0; }
+
+.smc-goal-name {
+  color: var(--text-secondary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smc-goal-min {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+}
+
+/* ============================================================
+   GROUP TABLE ALIGNMENT FIX — 헤더/데이터 열 정렬
+   ============================================================ */
+
+/* team-row와 group-header 모두 동일한 grid */
+.team-row,
+.group-header {
+  display: grid !important;
+  grid-template-columns: 30px 1fr auto auto !important;
+  align-items: center;
+  gap: 6px !important;
+}
+
+/* 헤더 스페이서: team-position 너비와 동일 */
+.group-header-spacer {
+  width: 30px;
+  flex-shrink: 0;
+}
+
+/* 헤더 재정렬 버튼 스페이서 */
+.group-header-btns-spacer {
+  width: 22px;
+  flex-shrink: 0;
+}
+
+/* GROUP A 라벨 */
+.group-key-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* 통계 헤더 — team-live-stats와 동일한 grid */
+.group-stats-header {
+  display: grid !important;
+  grid-template-columns: repeat(8, 1fr) !important;
+  gap: 0 !important;
+  min-width: 0 !important;
+  width: 100%;
+}
+
+.group-stats-header span {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 2px 0;
+}
+
+/* 팀 데이터 행 내부 통계 */
+.team-live-stats {
+  display: grid !important;
+  grid-template-columns: repeat(8, 1fr) !important;
+  gap: 0 !important;
+  min-width: 0 !important;
+  width: 100%;
+}
+
+.team-live-stats span {
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 팀 position 뱃지 */
+.team-position {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* 국기 셀 숨김 — position 뱃지로 충분 */
+.team-flag-cell {
+  display: none !important;
+}
+
+/* 재정렬 버튼 */
+.team-reorder-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+}
+
+/* ============================================================
+   GROUP TABLE ALIGNMENT — 완전 재정비 (v2)
+   ============================================================ */
+
+/* GROUP 라벨: 카드 타이틀로 분리 */
+.group-card-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 14px 2px;
+}
+
+/* 헤더 행 — 팀행과 동일한 flex 구조 */
+.group-header {
+  display: flex !important;
+  align-items: center;
+  padding: 2px 10px 4px !important;
+  gap: 0 !important;
+  background: none !important;
+}
+
+/* 왼쪽 스페이서: position뱃지(28px) + gap(6px) + flag셀(28px) + gap(6px) = 68px */
+.gh-left-spacer  { width: 68px; flex-shrink: 0; }
+/* 오른쪽 스페이서: 재정렬 버튼 영역 */
+.gh-right-spacer { width: 44px; flex-shrink: 0; }
+
+/* 통계 헤더 */
+div.group-stats-header {
+  flex: 1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(8, 1fr) !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+div.group-stats-header span {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* 팀 행 */
+.team-row {
+  display: flex !important;
+  align-items: center;
+  gap: 6px !important;
+  padding: 8px 10px !important;
+}
+
+/* position 뱃지 */
+.team-position {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* 국기 셀 */
+.team-flag-cell {
+  display: flex !important;
+  width: 28px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 통계 데이터 */
+.team-live-stats {
+  flex: 1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(8, 1fr) !important;
+  min-width: 0 !important;
+  gap: 0 !important;
+}
+.team-live-stats span {
+  font-size: 0.68rem !important;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 재정렬 버튼 컨테이너 */
+.team-reorder-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 22px;
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+.team-row:hover .team-reorder-buttons,
+.team-reorder-buttons:focus-within {
+  opacity: 1;
+}
+.reorder-btn {
+  width: 20px;
+  height: 18px;
+  font-size: 0.65rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 3px;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+.reorder-btn:hover { background: rgba(255,255,255,0.12); color: var(--text-primary); }
+
+/* 모바일: 재정렬 버튼 항상 보임 */
+@media (max-width: 768px) {
+  .team-reorder-buttons { opacity: 1 !important; }
+  .gh-right-spacer { width: 44px; }
+}
+

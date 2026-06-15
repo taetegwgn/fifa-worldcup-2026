@@ -1,0 +1,1406 @@
+/* ============================================================
+   DESIGN SYSTEM v2 — VISUAL REFINEMENTS
+   ============================================================ */
+
+/* ── Dot-grid background depth ─────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header: gradient glow border ─────────────────────── */
+header {
+  background: rgba(5, 8, 16, 0.93);
+  border-bottom: 1px solid transparent;
+  position: relative;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 255, 135, 0.45) 25%,
+    rgba(2, 132, 199, 0.45) 75%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Tabs: pill active state ────────────────────────────── */
+.nav-tabs {
+  background: rgba(5, 8, 16, 0.7);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 4px;
+  border-radius: 12px;
+}
+.tab-btn {
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 7px 14px;
+  transition: all var(--transition-fast);
+}
+.tab-btn.active {
+  background: linear-gradient(135deg, rgba(0,255,135,0.12), rgba(2,132,199,0.08));
+  border: 1px solid rgba(0,255,135,0.2);
+  color: #e2fff0;
+  box-shadow:
+    0 0 16px rgba(0,255,135,0.07),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  font-weight: 700;
+}
+.tab-btn.active::after { display: none; }
+
+/* ── Section headers ────────────────────────────────────── */
+.section-title {
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  position: relative;
+  padding-bottom: 14px;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 40px; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+.section-header-center .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.65;
+}
+
+/* ── Group card: hover gradient top border ──────────────── */
+.group-card {
+  position: relative;
+  overflow: visible;
+  border-radius: var(--radius-lg);
+}
+.group-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.group-card:hover::before { opacity: 1; }
+.group-card { overflow: hidden; }
+
+/* ── Team rank: colored circular badge ──────────────────── */
+.team-position {
+  min-width: 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  border: 1.5px solid transparent;
+  transition: transform var(--transition-fast);
+}
+.team-row:nth-child(1) .team-position,
+.team-row:nth-child(2) .team-position {
+  background: rgba(0,255,135,0.1);
+  color: var(--primary);
+  border-color: rgba(0,255,135,0.25);
+}
+.team-row:nth-child(3) .team-position {
+  background: rgba(2,132,199,0.1);
+  color: var(--secondary);
+  border-color: rgba(2,132,199,0.25);
+}
+.team-row:nth-child(4) .team-position {
+  background: rgba(244,63,94,0.06);
+  color: rgba(244,63,94,0.7);
+  border-color: rgba(244,63,94,0.12);
+}
+.team-row:hover .team-position {
+  transform: scale(1.1);
+}
+
+/* ── Korea hero gradient ────────────────────────────────── */
+.korea-badge {
+  background: linear-gradient(135deg,
+    #9B1C1C 0%,
+    #1E3A6E 50%,
+    #0D1B3E 100%);
+  padding: 28px 20px;
+}
+.korea-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 25% 60%, rgba(255,255,255,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.korea-flag-title h2 {
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+}
+
+/* ── Status list items ──────────────────────────────────── */
+.status-item {
+  padding: 9px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+.status-item:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* ── Match cards in bracket ─────────────────────────────── */
+.match-card {
+  max-width: 190px;
+  transition: all var(--transition-base);
+}
+.match-card:hover {
+  border-color: rgba(0,255,135,0.18);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 12px rgba(0,255,135,0.04);
+  transform: translateY(-2px);
+}
+.match-card.completed {
+  border-color: rgba(0,255,135,0.14);
+  background: rgba(0,255,135,0.015);
+}
+.match-team {
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+.match-team.winner {
+  background: rgba(0,255,135,0.07);
+}
+.match-team.winner .team-name {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── VS button (bracket match card) ────────────────────── */
+.match-vs-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 2px 0;
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.02);
+  border: none;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  opacity: 0.6;
+}
+.match-vs-btn:hover {
+  background: rgba(0,255,135,0.06);
+  color: var(--primary);
+  opacity: 1;
+}
+
+/* ── Flag images in cards ───────────────────────────────── */
+.sched-flag-img {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+
+.sched-team {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.sched-team span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live-team-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-team-name img {
+  width: 22px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.live-team-name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Group stats: better alignment ─────────────────────── */
+.group-stats-header,
+.team-live-stats {
+  min-width: 170px;
+  letter-spacing: 0;
+}
+.group-stats-header span,
+.team-live-stats span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.team-live-stats .pts-live {
+  background: rgba(0,255,135,0.08);
+  border-radius: 4px;
+  padding: 1px 0;
+}
+
+/* ── Group header refined ───────────────────────────────── */
+.group-header {
+  background: rgba(255,255,255,0.025);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+}
+
+/* ── Schedule card refined ──────────────────────────────── */
+.schedule-card {
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+.schedule-card:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateX(2px);
+}
+.schedule-card.upcoming {
+  border-left: 3px solid rgba(2,132,199,0.5);
+}
+.sched-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.sched-score-row {
+  gap: 16px;
+}
+.sched-team:first-child { justify-content: flex-end; }
+.sched-team:last-child  { justify-content: flex-start; }
+
+/* ── Live match card refined ────────────────────────────── */
+.live-match-card {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+}
+.live-match-card:hover {
+  border-color: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+}
+.live-score-display {
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  padding: 2px 12px;
+  background: rgba(0,255,135,0.06);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,255,135,0.1);
+}
+.live-team-name.home { justify-content: flex-end; }
+.live-team-name.away { justify-content: flex-start; }
+.live-match-meta {
+  margin-bottom: 10px;
+}
+
+/* ── Toast refinement ───────────────────────────────────── */
+.toast {
+  border-color: rgba(0,255,135,0.15);
+  border-left: 3px solid var(--primary);
+  font-weight: 500;
+}
+
+/* ── Dashboard info card ────────────────────────────────── */
+.info-card {
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+}
+.info-card:hover {
+  border-color: rgba(2,132,199,0.2);
+}
+.korea-note {
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  padding: 12px 20px 20px;
+  border-top: 1px solid var(--border-color);
+  line-height: 1.6;
+  background: rgba(255,255,255,0.015);
+}
+
+/* ── Modal refinement ───────────────────────────────────── */
+.modal-content {
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* ── Section header ─────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+.section-header-center {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ── Champion display ────────────────────────────────────── */
+.champion-display {
+  background: linear-gradient(135deg, rgba(245,158,11,0.06), transparent 70%);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: var(--radius-xl);
+  padding: 24px 20px;
+}
+
+
+/* ============================================================
+   SCHEDULE v2 — KST 날짜별 경기 일정
+   ============================================================ */
+
+/* 날짜 퀵점프 바 */
+.sched-date-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 0 20px;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+  background: linear-gradient(180deg, var(--bg-primary) 80%, transparent 100%);
+  padding-top: 12px;
+}
+
+.sched-date-btn {
+  padding: 5px 11px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.sched-date-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+  color: var(--text-primary);
+}
+.sched-date-btn.today {
+  background: rgba(0,255,135,0.12);
+  border-color: rgba(0,255,135,0.35);
+  color: var(--primary);
+  box-shadow: 0 0 10px rgba(0,255,135,0.08);
+}
+.sched-date-btn.past {
+  opacity: 0.55;
+}
+
+/* 날짜 블록 */
+.sched-day-block {
+  margin-bottom: 28px;
+  scroll-margin-top: 110px;
+}
+
+/* 날짜 헤더 */
+.sched-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border-bottom: none;
+}
+.sched-day-header.today-header {
+  background: rgba(0,255,135,0.06);
+  border-color: rgba(0,255,135,0.18);
+}
+
+.sched-day-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sched-day-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.sched-today-badge {
+  padding: 2px 9px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--primary);
+  color: var(--bg-primary);
+  border-radius: 20px;
+}
+.sched-day-meta {
+  display: flex;
+  gap: 6px;
+}
+.sched-count-badge {
+  padding: 3px 9px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 20px;
+}
+.sched-count-badge.done {
+  background: rgba(0,255,135,0.08);
+  color: var(--primary);
+  border: 1px solid rgba(0,255,135,0.18);
+}
+.sched-count-badge.upcoming {
+  background: rgba(2,132,199,0.08);
+  color: var(--secondary);
+  border: 1px solid rgba(2,132,199,0.18);
+}
+
+/* 경기 목록 컨테이너 */
+.sched-day-matches {
+  border: 1px solid rgba(255,255,255,0.07);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
+}
+
+/* 경기 카드 행 */
+.sched-match-card {
+  display: grid;
+  grid-template-columns: 100px 1fr 80px 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background var(--transition-fast);
+}
+.sched-match-card:last-child { border-bottom: none; }
+.sched-match-card:hover { background: rgba(255,255,255,0.03); }
+
+.sched-match-card.done {
+  background: rgba(0,0,0,0.08);
+}
+.sched-match-card.upcoming {
+  background: transparent;
+}
+.sched-match-card.kor-game {
+  background: rgba(199, 55, 55, 0.04);
+  border-left: 3px solid rgba(199, 55, 55, 0.4);
+}
+.sched-match-card.kor-game.done {
+  background: rgba(199, 55, 55, 0.06);
+}
+
+/* 시간 컬럼 */
+.sched-match-time-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-right: 12px;
+}
+.sched-time {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.sched-round-badge {
+  font-size: 0.63rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.sched-status-done {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+  width: fit-content;
+}
+.sched-status-upcoming {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--secondary);
+  background: rgba(2,132,199,0.08);
+  border: 1px solid rgba(2,132,199,0.15);
+  padding: 1px 5px;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+/* 팀 컬럼 */
+.sched-match-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+}
+.sched-match-team.home {
+  justify-content: flex-end;
+  text-align: right;
+}
+.sched-match-team.away {
+  justify-content: flex-start;
+  text-align: left;
+}
+.sched-match-team.winner .sched-team-name {
+  color: var(--primary);
+  font-weight: 700;
+}
+.sched-team-flag img {
+  width: 26px;
+  height: 17px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+  display: block;
+}
+.sched-team-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
+
+/* 스코어 컬럼 */
+.sched-match-score {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  padding: 4px 8px;
+  background: rgba(0,255,135,0.06);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,255,135,0.1);
+}
+.sched-match-score.upcoming {
+  background: transparent;
+  border-color: rgba(255,255,255,0.08);
+}
+.sched-score-sep {
+  color: var(--text-muted);
+  font-weight: 400;
+  margin: 0 2px;
+}
+.sched-vs {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+/* 득점자 행 */
+.sched-scorer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  padding: 6px 16px 8px 116px;
+  background: rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.sched-scorer-row:last-child { border-bottom: none; }
+.sched-scorer {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.sched-scorer.home-scorer { color: var(--text-secondary); }
+.sched-scorer.away-scorer { color: var(--text-secondary); }
+.sched-scorer-sep { flex: 0 0 100%; height: 0; }
+
+/* 반응형 */
+@media (max-width: 640px) {
+  .sched-match-card {
+    grid-template-columns: 80px 1fr 60px 1fr;
+    padding: 10px 10px;
+    gap: 0;
+  }
+  .sched-team-name { max-width: 90px; font-size: 0.78rem; }
+  .sched-time { font-size: 0.82rem; }
+  .sched-scorer-row { padding-left: 90px; }
+}
+
+
+/* ============================================================
+   GROUP TABLE v2 — 항상 전체 통계 + 국기 전용 표시
+   ============================================================ */
+
+/* 그룹 카드 헤더 레이아웃 */
+.group-key-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 통계 헤더 — 8열 */
+.group-stats-header {
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  min-width: 192px;
+  text-align: center;
+}
+.group-stats-header span {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 0;
+}
+
+/* 국기 전용 셀 */
+.team-flag-cell {
+  flex-shrink: 0;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group-flag-img {
+  width: 28px;
+  height: 19px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  display: block;
+  cursor: default;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.group-flag-img:hover {
+  transform: scale(1.25);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+  z-index: 2;
+  position: relative;
+}
+
+.group-flag-emoji {
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: default;
+  transition: transform var(--transition-fast);
+}
+.group-flag-emoji:hover {
+  transform: scale(1.3);
+}
+
+/* 통계 데이터 행 — 8열 */
+.team-live-stats {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  min-width: 192px;
+  text-align: center;
+  margin-left: auto;
+}
+.team-live-stats span {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  padding: 0 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-live-stats .pts-live {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 0.78rem;
+  background: rgba(0,255,135,0.08);
+  border-radius: 4px;
+}
+.team-live-stats .gd-pos {
+  color: var(--primary);
+  font-weight: 600;
+}
+.team-live-stats .gd-neg {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* team-row: name 컬럼 제거로 레이아웃 재조정 */
+.team-row {
+  gap: 6px;
+}
+/* 기존 .team-name은 숨김 (group에서는 안 씀) */
+.group-teams-list .team-name {
+  display: none;
+}
+
+
+/* ============================================================
+   SCHEDULE FILTER — 한국 경기 필터
+   ============================================================ */
+
+/* 상단 컨트롤 바 */
+.sched-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.sched-topbar .schedule-updated {
+  margin: 0;
+  padding: 6px 14px;
+  font-size: 0.7rem;
+}
+
+/* 필터 버튼 그룹 */
+.sched-filter-group {
+  display: flex;
+  gap: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 30px;
+  padding: 4px;
+}
+
+.sched-filter-btn {
+  padding: 6px 16px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 24px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.sched-filter-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.06);
+}
+.sched-filter-btn.active {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.15);
+}
+.sched-filter-btn.kor.active {
+  background: rgba(199, 55, 55, 0.15);
+  color: #FF7B7B;
+  border-color: rgba(199, 55, 55, 0.3);
+  box-shadow: 0 0 12px rgba(199, 55, 55, 0.08);
+}
+
+/* 한국 경기 카드 강화 하이라이트 */
+.sched-match-card.kor-game {
+  background: rgba(199, 55, 55, 0.07);
+  border-left: 3px solid rgba(199, 55, 55, 0.6);
+  position: relative;
+}
+.sched-match-card.kor-game::before {
+  content: '🇰🇷';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.sched-match-card.kor-game:hover {
+  background: rgba(199, 55, 55, 0.1);
+}
+.sched-match-team.kor-team .sched-team-name {
+  color: #FF8A8A;
+  font-weight: 700;
+}
+
+/* 한국 경기 있는 날 날짜 헤더 */
+.sched-day-header.kor-day-header {
+  border-left: 3px solid rgba(199, 55, 55, 0.5);
+}
+.sched-kor-day-badge {
+  padding: 2px 9px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(199, 55, 55, 0.12);
+  color: #FF8A8A;
+  border: 1px solid rgba(199, 55, 55, 0.25);
+  border-radius: 20px;
+}
+
+/* ── 필터 활성화 시 CSS 숨김 ──────────────────────────── */
+/* 한국 경기 없는 날짜 블록 숨김 */
+.kor-filter-active .sched-day-block[data-has-kor="false"] {
+  display: none;
+}
+/* 한국 경기가 아닌 경기 카드(+득점자) 숨김 */
+.kor-filter-active .sched-match-wrap[data-is-kor="false"] {
+  display: none;
+}
+/* 필터 중 날짜 버튼 비활성 */
+.sched-date-btn.filtered-out {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* 날짜 버튼 중 한국 경기 있는 날 강조 */
+.sched-date-btn.has-kor {
+  border-color: rgba(199, 55, 55, 0.3);
+  color: #FF8A8A;
+}
+.sched-date-btn.has-kor:hover {
+  background: rgba(199, 55, 55, 0.08);
+  border-color: rgba(199, 55, 55, 0.5);
+}
+
+
+/* ============================================================
+   HEADER LOGO — Trophy Image
+   ============================================================ */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-trophy-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+  animation: float 3s infinite ease-in-out;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFD700, #00D4FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.logo-sub {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+/* ============================================================
+   TOURNAMENT FORMAT CARD — Redesign
+   ============================================================ */
+.tournament-format-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tournament-format-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tournament-format-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tournament-format-year {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.tournament-format-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--text-primary);
+}
+
+.tournament-format-trophy {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+  opacity: 0.92;
+}
+
+.tournament-format-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.tf-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s;
+}
+
+.tf-step:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tf-step-arrow {
+  text-align: left;
+  padding-left: 24px;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  line-height: 1.2;
+  margin: 2px 0;
+}
+
+.tf-step-icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00FF87, #0284C7);
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 135, 0.3);
+}
+
+.tf-step-icon--blue {
+  background: linear-gradient(135deg, #0284C7, #60A5FA);
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.3);
+}
+
+.tf-step-icon--gold {
+  background: linear-gradient(135deg, #FFD700, #F59E0B);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  font-size: 1rem;
+}
+
+.tf-step-icon--flags {
+  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+  font-size: 1rem;
+}
+
+.tf-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tf-step-body strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tf-step-body span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.tf-host-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.tf-host {
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   SITE FOOTER
+   ============================================================ */
+.site-footer {
+  margin-top: 40px;
+  padding: 24px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.footer-trophy {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.6;
+  filter: grayscale(0.3);
+}
+
+.footer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.footer-credit {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-credit strong {
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+/* ============================================================
+   VENUE INFO — 경기장 국기 표시
+   ============================================================ */
+
+/* 브라켓 카드 경기장 정보 */
+.match-venue-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* 경기 일정 카드 경기장 정보 */
+.sched-venue-info {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+/* ============================================================
+   MOBILE OVERHAUL  (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ── 1. 하단 내비게이션 바 ──────────────────────────────── */
+  header {
+    flex-wrap: nowrap !important;
+    padding: 8px 14px !important;
+    gap: 8px;
+  }
+
+  /* 헤더에서 탭 숨김 */
+  header .nav-tabs {
+    display: none !important;
+  }
+
+  /* 하단 고정 탭 바 */
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(5, 8, 16, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    gap: 0;
+  }
+
+  .mobile-bottom-nav .tab-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 0.6rem !important;
+    padding: 6px 2px !important;
+    border-radius: 8px;
+    min-height: 48px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-muted);
+  }
+
+  .mobile-bottom-nav .tab-btn .tab-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .mobile-bottom-nav .tab-btn .tab-label {
+    line-height: 1;
+  }
+
+  .mobile-bottom-nav .tab-btn.active {
+    color: var(--primary) !important;
+    background: rgba(0, 255, 135, 0.06) !important;
+    border: none !important;
+  }
+
+  .mobile-bottom-nav .tab-btn.active .tab-icon {
+    filter: drop-shadow(0 0 6px rgba(0,255,135,0.5));
+  }
+
+  /* 콘텐츠 영역 하단 탭 바 높이만큼 패딩 */
+  main {
+    padding-bottom: 80px !important;
+  }
+
+  /* 로고 타이틀 작게 */
+  .logo-title {
+    font-size: 1.1rem !important;
+  }
+  .logo-sub {
+    display: none;
+  }
+  .logo-trophy-img {
+    height: 34px !important;
+  }
+
+  /* ── 2. 드래그 비활성화 → 재정렬 버튼 항상 표시 ─────────── */
+  .team-row {
+    cursor: default !important;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: pan-y;
+  }
+
+  .team-reorder-buttons {
+    opacity: 1 !important;
+    display: flex !important;
+  }
+
+  .reorder-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* ── 3. 일정 날짜 네비 sticky 제거 ──────────────────────── */
+  .sched-date-nav {
+    position: static !important;
+    top: auto !important;
+    background: none !important;
+    padding-top: 0 !important;
+  }
+
+  /* ── 4. 통계 테이블 열 정렬 ─────────────────────────────── */
+  /* group-header에 badge/flag 너비만큼 왼쪽 패딩 */
+  .group-header {
+    padding-left: 0 !important;
+    align-items: center;
+  }
+
+  /* 헤더 레이아웃: label | spacer | stats */
+  .group-stats-header {
+    min-width: 0 !important;
+    flex: 1;
+  }
+
+  /* 팀 행 구조 고정 */
+  .team-row {
+    display: grid !important;
+    grid-template-columns: 26px 28px 1fr auto !important;
+    gap: 4px !important;
+    align-items: center;
+  }
+
+  .team-position {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.65rem !important;
+    flex-shrink: 0;
+  }
+
+  .team-flag-cell {
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-live-stats {
+    min-width: 0 !important;
+    width: 100%;
+    grid-template-columns: repeat(8, 1fr) !important;
+    gap: 0 !important;
+    font-size: 0.64rem !important;
+  }
+
+  .team-live-stats span {
+    font-size: 0.64rem !important;
+    padding: 0 !important;
+  }
+
+  /* group-stats-header도 팀행 구조와 동일하게 맞춤 */
+  .group-header {
+    display: grid !important;
+    grid-template-columns: 26px 28px 1fr auto !important;
+    gap: 4px !important;
+    align-items: center;
+    padding: 0 10px !important;
+  }
+
+  .group-key-label {
+    /* 첫 번째 컬럼: label */
+    grid-column: 1 / 3;
+  }
+
+  .group-stats-header {
+    grid-column: 3 / 4;
+    grid-template-columns: repeat(8, 1fr) !important;
+    gap: 0 !important;
+    font-size: 0.58rem !important;
+  }
+
+  .group-stats-header span {
+    font-size: 0.58rem !important;
+  }
+
+  /* 재정렬 버튼 컬럼 */
+  .team-reorder-buttons {
+    grid-column: 4 / 5;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* ── 5. 경기 일정 카드 모바일 컴팩트 ───────────────────── */
+  .sched-match-card {
+    grid-template-columns: 70px 1fr auto 1fr !important;
+    gap: 4px !important;
+    padding: 8px !important;
+  }
+
+  .sched-team-name {
+    font-size: 0.72rem !important;
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sched-venue-info {
+    max-width: 70px !important;
+    font-size: 0.6rem !important;
+  }
+}
+
+/* 데스크톱에서 bottom-nav 숨김 */
+@media (min-width: 769px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
