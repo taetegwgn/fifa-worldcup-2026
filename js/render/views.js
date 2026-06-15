@@ -77,7 +77,9 @@ function renderLiveMatches() {
       html += '<div class="live-scorers">' + allScorers.join(' · ') + '</div>';
     }
     if (match.local_date) {
-      html += '<div class="live-match-date">' + formatMatchDate(match.local_date) + ' (' + t('localTime') + ')</div>';
+      var liveDateObj = (typeof toUserTZ === 'function') ? toUserTZ(match.local_date, match.stadium_id) : null;
+      var liveDateStr = (liveDateObj && typeof formatInUserTZ === 'function') ? formatInUserTZ(liveDateObj) : formatMatchDate(match.local_date);
+      html += '<div class="live-match-date">' + liveDateStr + '</div>';
     }
     html += '</div>';
   }
@@ -529,17 +531,18 @@ function renderScenarios() {
   container.innerHTML = html;
 }
 
-// API local_date는 미 동부시간(ET = UTC-4) 기준
-// KST = ET + 13시간
-function toKST(dateStr) {
+// local_date is venue-local time. Convert to KST using stadium timezone.
+function toKST(dateStr, stadiumId) {
   if (!dateStr) return null;
   var p = dateStr.match(/(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)/);
   if (!p) return null;
+  var offset = (typeof STADIUM_UTC_OFFSET !== 'undefined' && stadiumId && STADIUM_UTC_OFFSET[stadiumId] !== undefined)
+                 ? STADIUM_UTC_OFFSET[stadiumId] : -4;
   var utcMs = Date.UTC(
     parseInt(p[3], 10),
     parseInt(p[1], 10) - 1,
     parseInt(p[2], 10),
-    parseInt(p[4], 10) + 4,  // ET(UTC-4) → UTC
+    parseInt(p[4], 10) - offset,
     parseInt(p[5], 10)
   );
   return new Date(utcMs + 9 * 3600000); // UTC → KST
@@ -629,8 +632,7 @@ function renderSchedule() {
 
   for (var i = 0; i < state.liveGames.length; i++) {
     var g = state.liveGames[i];
-    // Use user's selected timezone if available, else fall back to KST
-    var dateObj = (typeof toUserTZ === 'function') ? toUserTZ(g.local_date) : toKST(g.local_date);
+    var dateObj = (typeof toUserTZ === 'function') ? toUserTZ(g.local_date, g.stadium_id) : toKST(g.local_date, g.stadium_id);
     var dateKey = (typeof formatDateKeyUserTZ === 'function' && dateObj) ? formatDateKeyUserTZ(dateObj) : kstDateKey(dateObj);
     var timeStr = (typeof formatTimeOnlyUserTZ === 'function' && dateObj) ? formatTimeOnlyUserTZ(dateObj) : kstTimeStr(dateObj);
     g._kst     = dateObj;

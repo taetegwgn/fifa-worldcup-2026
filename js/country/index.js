@@ -161,15 +161,25 @@ function hideCountryModal() {
 }
 
 /* ── Timezone helpers ────────────────────────────────────── */
-/* API dates are ET (UTC-4). Convert to UTC Date object. */
-function toUserTZ(dateStr) {
+/* Venue UTC offsets during summer (June–July) */
+var STADIUM_UTC_OFFSET = {
+  1:-6, 2:-6, 3:-6,
+  4:-5, 5:-5, 6:-5,
+  7:-4, 8:-4, 9:-4, 10:-4, 11:-4, 12:-4,
+  13:-7, 14:-7, 15:-7, 16:-7
+};
+
+/* local_date is in the venue's local timezone. Convert to UTC Date object. */
+function toUserTZ(dateStr, stadiumId) {
   if (!dateStr) return null;
   try {
     var parts = dateStr.match(/(\d+)\/(\d+)\/(\d+) (\d+):(\d+)/);
     if (!parts) return null;
+    var offset = (stadiumId && STADIUM_UTC_OFFSET[stadiumId] !== undefined)
+                   ? STADIUM_UTC_OFFSET[stadiumId] : -4;
     var utcMs = Date.UTC(
       parseInt(parts[3],10), parseInt(parts[1],10)-1, parseInt(parts[2],10),
-      parseInt(parts[4],10)+4, parseInt(parts[5],10)
+      parseInt(parts[4],10) - offset, parseInt(parts[5],10)
     );
     return new Date(utcMs);
   } catch(e) { return null; }
