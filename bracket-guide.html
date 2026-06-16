@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>32강 대진 가이드 — WC 2026</title>
+  <meta name="description" content="2026 FIFA World Cup 32강 대진표 규칙 설명 및 인터랙티브 시연. FIFA 고정 브라켓, 3위팀 Annex C 배정.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base/variables.css">
+  <link rel="stylesheet" href="css/views/bracket-guide.css">
+</head>
+<body>
+
+  <div class="guide-page">
+    <a href="index.html" class="back-link">← 시뮬레이터로 돌아가기</a>
+
+    <header class="guide-header">
+      <h1>🏆 32강 대진표 가이드</h1>
+      <p>2026 FIFA World Cup — 고정 브라켓 규칙 &amp; 인터랙티브 시연</p>
+    </header>
+
+    <nav class="guide-nav">
+      <a href="#overview" class="active">개요</a>
+      <a href="#r32-table">32강 대진표</a>
+      <a href="#third-demo">3위팀 시연</a>
+      <a href="#knockout">토너먼트 흐름</a>
+      <a href="docs/round-of-32-bracket.md">📄 Markdown 문서</a>
+    </nav>
+
+    <!-- Section 1: Overview -->
+    <section class="guide-section" id="overview">
+      <h2><span class="num">1</span> 토너먼트 구조</h2>
+      <p class="desc">48팀 → 12개 조 → 32강 → 결승. <strong>랜덤 추첨이 아닙니다.</strong></p>
+
+      <div class="callout">
+        <strong>핵심:</strong> 조별리그 1·2위(24팀)는 고정 슬롯으로 32강에 진출하고,
+        3위 8팀은 성적 순으로 선발된 뒤 FIFA Annex C 규칙에 따라 배정됩니다.
+        16강 이후는 승자가 정해지면 다음 라운드 경로가 자동으로 연결됩니다.
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-step">48팀<small>12개 조</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">조별리그<small>72경기</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">32팀<small>1·2위 24 + 3위 8</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">32강<small>16경기</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">16강<small>8경기</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">8강<small>4경기</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">준결승<small>2경기</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step" style="border:1px solid var(--gold);color:var(--gold);">결승</div>
+      </div>
+    </section>
+
+    <!-- Section 2: R32 Table -->
+    <section class="guide-section" id="r32-table">
+      <h2><span class="num">2</span> 32강 고정 대진표</h2>
+      <p class="desc">FIFA가 사전에 정한 16경기 슬롯. 조 순위만 정해지면 상대가 자동 결정됩니다.</p>
+
+      <div class="match-table-wrap">
+        <table class="match-table">
+          <thead>
+            <tr>
+              <th>경기</th>
+              <th>홈 슬롯</th>
+              <th>원정 슬롯</th>
+              <th>개최 도시</th>
+            </tr>
+          </thead>
+          <tbody id="r32-table-body"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
+        <span class="slot-1st">■ 1위</span> &nbsp;
+        <span class="slot-2nd">■ 2위</span> &nbsp;
+        <span class="slot-3rd">■ 3위팀 슬롯</span>
+      </div>
+    </section>
+
+    <!-- Section 3: 3rd Place Interactive -->
+    <section class="guide-section" id="third-demo">
+      <h2><span class="num">3</span> 3위팀 배정 시연 (Annex C)</h2>
+      <p class="desc">각 조 카드를 클릭하면 승점이 올라갑니다. 상위 8팀이 32강에 진출하고 Annex C 규칙으로 배정됩니다.</p>
+
+      <div class="third-demo">
+        <div class="third-controls">
+          <button onclick="resetThirdStats()">🔄 초기화</button>
+          <button onclick="randomizeThirdStats()">🎲 랜덤 성적</button>
+        </div>
+        <div class="third-grid" id="third-grid"></div>
+        <div class="mapping-result" id="mapping-result"></div>
+      </div>
+    </section>
+
+    <!-- Section 4: Knockout Tree -->
+    <section class="guide-section" id="knockout">
+      <h2><span class="num">4</span> 토너먼트 전체 흐름</h2>
+      <p class="desc">32강부터 결승까지 승자가 다음 라운드로 이어지는 고정 경로입니다.</p>
+
+      <div class="knockout-tree" id="knockout-tree"></div>
+    </section>
+
+    <footer style="text-align:center;padding:32px 0;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border-color);">
+      Made with ❤️ by <strong style="color:var(--text-secondary);">Taegwan Kim</strong> · Fan-made · Unofficial
+    </footer>
+  </div>
+
+  <script src="js/guide/bracket-demo.js"></script>
+</body>
+</html>
